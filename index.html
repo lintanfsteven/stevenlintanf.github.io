@@ -480,6 +480,172 @@
             transform: translateY(-5px);
         }
 
+        /* Modal/Lightbox */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 11, 31, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: rgba(10, 36, 99, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(62, 124, 177, 0.3);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            padding: 3rem;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid var(--bright-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--bright-orange);
+        }
+
+        .modal-close:hover {
+            background: var(--bright-orange);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-preview {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--electric-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-preview::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 107, 53, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        .modal-body {
+            margin-bottom: 2rem;
+        }
+
+        .modal-description {
+            color: rgba(232, 233, 237, 0.8);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .modal-features {
+            margin: 2rem 0;
+        }
+
+        .modal-features h3 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .modal-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-features li {
+            color: rgba(232, 233, 237, 0.7);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .modal-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--bright-orange);
+            font-weight: bold;
+        }
+
+        .modal-tech {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Footer */
         footer {
             padding: 2rem 0;
@@ -811,7 +977,7 @@
                             Application e-commerce complète avec gestion des paiements, système de panier intelligent et tableau de bord administrateur. 
                             Interface responsive optimisée pour tous les appareils.
                         </p>
-                        <a href="#" class="btn btn-primary">Voir le projet</a>
+                        <button class="btn btn-primary" onclick="openModal('project1')">Voir le projet</button>
                     </div>
                 </div>
 
@@ -828,7 +994,7 @@
                             Plateforme collaborative en temps réel permettant aux équipes de gérer leurs projets efficacement. 
                             Authentification sécurisée et synchronisation instantanée.
                         </p>
-                        <a href="#" class="btn btn-primary">Voir le projet</a>
+                        <button class="btn btn-primary" onclick="openModal('project2')">Voir le projet</button>
                     </div>
                 </div>
 
@@ -845,7 +1011,7 @@
                             Site portfolio créatif avec animations 3D et interactions immersives. 
                             Optimisé pour les performances avec chargement progressif et expérience fluide.
                         </p>
-                        <a href="#" class="btn btn-primary">Voir le projet</a>
+                        <button class="btn btn-primary" onclick="openModal('project3')">Voir le projet</button>
                     </div>
                 </div>
             </div>
@@ -882,7 +1048,155 @@
         </section>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 DEV.STUDIO - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <!-- Modals pour les projets -->
+    <div id="project1" class="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal('project1')">&times;</div>
+            <div class="modal-header">
+                <h2>Plateforme E-Commerce</h2>
+                <div class="modal-tech">
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">Stripe</span>
+                </div>
+            </div>
+            <div class="modal-preview">🌐</div>
+            <div class="modal-body">
+                <p class="modal-description">
+                    Plateforme e-commerce moderne et complète développée pour offrir une expérience d'achat fluide et sécurisée. 
+                    Le projet inclut un système de gestion de panier intelligent, un processus de paiement intégré avec Stripe, 
+                    et un tableau de bord administrateur complet pour gérer les produits, commandes et clients.
+                </p>
+                <div class="modal-features">
+                    <h3>Fonctionnalités principales :</h3>
+                    <ul>
+                        <li>Catalogue de produits avec filtres et recherche avancée</li>
+                        <li>Panier intelligent avec sauvegarde persistante</li>
+                        <li>Paiements sécurisés via Stripe</li>
+                        <li>Dashboard admin avec analytics en temps réel</li>
+                        <li>Gestion des stocks et notifications automatiques</li>
+                        <li>Interface responsive optimisée mobile-first</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <a href="#" class="btn btn-primary">Voir le site en ligne</a>
+                <a href="#" class="btn btn-secondary">Code GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="project2" class="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal('project2')">&times;</div>
+            <div class="modal-header">
+                <h2>Application SaaS</h2>
+                <div class="modal-tech">
+                    <span class="tag">Vue.js</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">Tailwind</span>
+                    <span class="tag">WebSockets</span>
+                </div>
+            </div>
+            <div class="modal-preview">📱</div>
+            <div class="modal-body">
+                <p class="modal-description">
+                    Plateforme collaborative SaaS permettant aux équipes de gérer leurs projets de manière efficace et en temps réel. 
+                    L'application utilise Firebase pour la synchronisation instantanée et offre une expérience utilisateur fluide 
+                    avec des mises à jour en direct pour tous les membres de l'équipe.
+                </p>
+                <div class="modal-features">
+                    <h3>Fonctionnalités principales :</h3>
+                    <ul>
+                        <li>Collaboration en temps réel multi-utilisateurs</li>
+                        <li>Système d'authentification sécurisé</li>
+                        <li>Gestion de projets avec tableaux Kanban</li>
+                        <li>Notifications push instantanées</li>
+                        <li>Partage de fichiers et documents</li>
+                        <li>Interface moderne avec Tailwind CSS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <a href="#" class="btn btn-primary">Voir le site en ligne</a>
+                <a href="#" class="btn btn-secondary">Code GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="project3" class="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal('project3')">&times;</div>
+            <div class="modal-header">
+                <h2>Portfolio Interactif</h2>
+                <div class="modal-tech">
+                    <span class="tag">Next.js</span>
+                    <span class="tag">Three.js</span>
+                    <span class="tag">GSAP</span>
+                    <span class="tag">WebGL</span>
+                </div>
+            </div>
+            <div class="modal-preview">🎯</div>
+            <div class="modal-body">
+                <p class="modal-description">
+                    Portfolio créatif et immersif utilisant les technologies 3D les plus avancées. 
+                    Ce projet démontre l'utilisation de Three.js pour créer des expériences web immersives, 
+                    combiné avec GSAP pour des animations fluides et Next.js pour des performances optimales.
+                </p>
+                <div class="modal-features">
+                    <h3>Fonctionnalités principales :</h3>
+                    <ul>
+                        <li>Scènes 3D interactives avec Three.js</li>
+                        <li>Animations complexes avec GSAP</li>
+                        <li>Optimisation des performances et lazy loading</li>
+                        <li>Navigation fluide entre les sections</li>
+                        <li>Design responsive et adaptatif</li>
+                        <li>Expérience utilisateur immersive</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <a href="#" class="btn btn-primary">Voir le site en ligne</a>
+                <a href="#" class="btn btn-secondary">Code GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fermer le modal en cliquant en dehors
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Fermer le modal avec la touche Echap
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const activeModal = document.querySelector('.modal.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
